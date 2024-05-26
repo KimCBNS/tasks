@@ -19,3 +19,15 @@ input {
 .task-card:hover {
   cursor: grab;
 }
+
+#deleteBtn {
+  background-color: #620ecf; /* Blue */
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  width: 120px;
+  
+}
