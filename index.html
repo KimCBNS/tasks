@@ -11,7 +11,8 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+  
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 
   <link rel="stylesheet" href="assets\styles.css" />
 
@@ -32,25 +33,34 @@
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Task</button>
     </div>
    
-    <!-- Todo: Create a modal with a form to add tasks -->
-   
-
-
+<!-- Todo: Create a modal with a form to add tasks -->
+<!-- THEN I can enter the title, description and deadline date for the new task into a modal dialog -->
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add task</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <div class="modal-body">
-        ...
+        <label for="title" name="title">Title:</label>
+        <input type="text" class="form-input w-80" id="title" name="title" placeholder="Enter task title" />
+
+        <label for="date" name="date">Date:</label>
+        <input type="text" id="datepicker" name="date">
+
+        <label for="description" name="Description">Description:</label>
+        <input type="text" class="form-input w-80" id="description" name="description" placeholder="Enter task description" />
+
+
       </div>
+
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        
+        <button type="button" id="addTask" class="btn btn-primary">Add task</button>
       </div>
     </div>
   </div>

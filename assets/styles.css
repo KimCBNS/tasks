@@ -3,6 +3,11 @@ body {
   font-size: 16px;
 }
 
+input {
+  margin: 2%;
+  width: 60%;
+}
+
 .swim-lanes {
   min-height: 60vh;
 }
