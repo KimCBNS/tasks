@@ -25,9 +25,10 @@ input {
   border: none;
   color: white;
   padding: 10px 15px;
+  margin-bottom: 12px;
   text-align: center;
   text-decoration: none;
   font-size: 14px;
-  width: 120px;
+  width: 90px;
   
 }
