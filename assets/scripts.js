@@ -12,6 +12,7 @@ console.log('what is in storage: ' + taskList);
 // do the set up tasks
 let nextId = 1;
 let addTaskBtn = $('#addTask');
+let addDeleteBtn = $('.deleteBtn');
 
 
 //adds function for the datepicker
@@ -47,7 +48,7 @@ function createTaskCard(a, b, c, d, e) {
   let card = $('<div>');
   card.attr("class", 'card');
   card.attr("id", d);  // assign the task number as the id of the card
-  card.attr('style', 'width:80; align-items: center');
+  
 
   // create the card-body and give it a class card-body
   let cardBody = $('<div>');
@@ -67,11 +68,37 @@ function createTaskCard(a, b, c, d, e) {
   let cardDate = $('<p>');
   cardDate.attr("class", 'cardDate');
   cardDate.text(b.toString());
+  /* here is where we determine the difference between due date and today's date get today's date, get the due date, find the difference. If overdue 
+  make the card red, if close to due date, make the card yellow, else make it white.*/
+
+
+
+// days.js calculate the days between
+// dayjs object for May 4, 2027
+const DueDate = dayjs(b);
+console.log(DueDate);
+
+// dayjs object for today
+const todayDate = dayjs();
+console.log(todayDate);
+
+// number of days between targetDay and today
+const daysBetween = DueDate.diff(todayDate, 'days');
+console.log("blank days till due " + daysBetween);
+
+if (daysBetween <= 0){
+  card.attr('style', 'width:80; align-items: center; background-color: red; margin: 3px');
+} else if (daysBetween <5) {
+  card.attr('style', 'width:80; align-items: center; background-color: yellow; margin: 3px');
+} else {
+  card.attr('style', 'width:80; align-items: center; background-color: white; margin: 3px');
+}
+
 
   //  create the delete button class="btn btn-primary">Delete</a>
   let cardDelete = $('<button>');
-  cardDelete.attr("class", 'btn btn-primary');
-  cardDelete.attr("id", 'deleteBtn');
+  cardDelete.attr("class", 'btn btn-primary deleteBtn');
+  cardDelete.attr("id", d);
   cardDelete.text("delete");
 
   // put it all together and build the card
@@ -106,13 +133,9 @@ function renderTaskList() {
 
 
   }
-  // tDate  
-  // tDescription
-  // tNumber
-  // tStatus
-  // tTitle
-
-
+  
+  addDeleteBtn = $('.deleteBtn');
+  addDeleteBtn.on('click', handleDeleteTask);
 }
 
 
@@ -160,11 +183,38 @@ function handleAddTask(event) {
   location.reload(); //to clear the old list and re-render with the new addition
 
   // render the updated list
+  // activate the delete button
+  
   renderTaskList();
 }
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event) {
+event.preventDefault();
+console.log('delete clicked');
+// capture the id of the item to be deleted
+//get the items from local storage...remove the one with that Id
+//reset the local storage
+// rerender the list without the removed item
+let itemDeleted = this.id;
+//get the task list
+let tasksMemory = [];
+tasksMemory = JSON.parse(localStorage.getItem("tasks"));
+
+
+let updatedTaskList = [];
+for (let i = 0; i < tasksMemory.length; i++) {
+  if (tasksMemory[i].tNumber == itemDeleted) {
+
+  } else 
+  updatedTaskList.push(tasksMemory[i])
+}
+
+console.log(updatedTaskList);
+localStorage.setItem('tasks', JSON.stringify(updatedTaskList));
+
+location.reload(); //to clear the old list and re-render with the new addition
+renderTaskList();
 
 }
 
@@ -177,12 +227,11 @@ function handleDrop(event, ui) {
 $(document).ready(function () {
   // listen for the add task button to be clicked
   addTaskBtn.on('click', handleAddTask);
+  addDeleteBtn.on('click', handleDeleteTask);
   renderTaskList();
 
 
 });
-
-
 
 
 // testing area == adds to the page
