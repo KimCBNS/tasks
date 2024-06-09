@@ -48,7 +48,7 @@ function createTaskCard(task) {
   card.attr("id", task.tNumber);  // assign the task number as the id of the card
   //puts a dataset on it. stored on the element
   card.attr("data-id", task.tNumber);
-  card.attr("status", "to-do");
+  card.attr("status", task.tStatus);
 
   // create the card-body and give it a class card-body
   let cardBody = $('<div>');
@@ -231,16 +231,26 @@ function handleDeleteTask(event) {
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+  
   // store as a data id as an attr
   const taskId = ui.draggable[0].dataset.id;
+  console.log(taskId);
+  
   const newStatus = event.target.id;
+  
+  let tasksList = [];
+  tasksList = JSON.parse(localStorage.getItem("tasks"));
 
-  for (let task of taskList) {
+ 
+  for (let task of tasksList) {
+    console.log(task);
+    console.log(task.tNumber);
     if (task.tNumber === Number(taskId)) {
       task.tStatus = newStatus;
     }
   }
-  localStorage.setItem('tasks', JSON.stringify(taskList));
+
+  localStorage.setItem('tasks', JSON.stringify(tasksList));
   renderTaskList();
 }
 
@@ -257,11 +267,7 @@ $(document).ready(function () {
   $('.lane').droppable({
     accept: '.draggable',
     drop: handleDrop,
-    drop: function( event, ui ) {
-    console.log('dropped');
-    $( this )
-      .addClass( "ui-state-highlight" );
-  }
+
   });
 
 
