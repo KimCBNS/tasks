@@ -147,7 +147,17 @@ function renderTaskList() {
     addDeleteBtn.on('click', handleDeleteTask);
 
 
-     $(".draggable").draggable({ opacity: 0.7, zIndex: 100 });
+     $(".draggable").draggable({ opacity: 0.7, zIndex: 100 ,
+      helper: function (e) {
+        // check if the target of the drag event is the card itself
+        const original = $(e.target).hasClass('ui-draggable')
+        ? $(e.target)
+        : $(e.target).closest('ui-draggable');
+        return original.clone().css({
+          maxWidth: original.outerWidth(),
+        })
+      },
+     });
    
   }
 
@@ -236,20 +246,23 @@ function handleDrop(event, ui) {
   const taskId = ui.draggable[0].dataset.id;
   console.log(taskId);
   
-  const newStatus = event.target.id;
+  const newStatus = event.target.id; //this is the lanes id on the html 
   
   let tasksList = [];
   tasksList = JSON.parse(localStorage.getItem("tasks"));
 
  
+  //this code goes through the list of stored items to find the id of the item
+  //we moved and it changes only that item's status
   for (let task of tasksList) {
     console.log(task);
     console.log(task.tNumber);
-    if (task.tNumber === Number(taskId)) {
+    //add number here
+    if (Number(task.tNumber) === Number(taskId)) {
       task.tStatus = newStatus;
     }
   }
-
+// update the local storage 
   localStorage.setItem('tasks', JSON.stringify(tasksList));
   renderTaskList();
 }
