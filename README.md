@@ -2,6 +2,8 @@
 Overview
 This project is a task board designed to manage projects efficiently by organizing tasks into different progress states. The board is built using HTML, CSS, JavaScript, jQuery, and Bootstrap, and it utilizes localStorage to persist data.
 
+![alt text](Screenshot (90).png)
+
 Features
 Display of Tasks: Tasks are displayed in columns representing their progress states: Not Yet Started, In Progress, and Completed.
 Color Coding: Tasks are color-coded to indicate their urgency. Tasks nearing their deadlines are highlighted in yellow, while overdue tasks are highlighted in red.

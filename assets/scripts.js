@@ -83,9 +83,13 @@ function createTaskCard(task) {
   // number of days between targetDay and today
   const daysBetween = DueDate.diff(todayDate, 'days');
 
-  if (daysBetween <= 0) {
+  // if the task is done make it white
+  if (task.tStatus === "done"){
+    card.attr('style', 'width:80; align-items: center; background-color: lightgrey; margin: 3px');
+  }
+  else if (daysBetween < 0)  {
     card.attr('style', 'width:80; align-items: center; background-color: red; margin: 3px');
-  } else if (daysBetween < 5) {
+  } else if (daysBetween < 3) {
     card.attr('style', 'width:80; align-items: center; background-color: yellow; margin: 3px');
   } else {
     card.attr('style', 'width:80; align-items: center; background-color: white; margin: 3px');
@@ -115,7 +119,7 @@ function createTaskCard(task) {
 function renderTaskList() {
   let tasksToRender = [];
   tasksToRender = JSON.parse(localStorage.getItem("tasks"));
- console.log(tasksToRender.length);
+  console.log(tasksToRender.length);
  
 
   // need to get the 3 possible columns to post the card to. 
@@ -141,6 +145,7 @@ function renderTaskList() {
     }
     else {
       cardDone.append(cardNew);
+      
     }
 
     addDeleteBtn = $('.deleteBtn');
@@ -174,23 +179,32 @@ function handleAddTask(event) {
   event.preventDefault();
   console.log('clicked');
 
+  let tasksCurrent = [];
+  tasksCurrent = JSON.parse(localStorage.getItem("tasks"));
+  console.log("current task list is " + tasksCurrent.length + "long");
+
+
   const taskTitle = $('input[name="title"]').val().trim();
   const taskDescript = $('input[name="description"]').val().trim();
   const taskDate = $('input[name="date"]').val().trim();
+
+  // if no data in some fields return a pop up advising to enter valid info
+  if ((taskTitle === "") || (taskDescript === "") || (taskDate === "")){
+    alert("enter valid content");
+    
+  } else {
+
   generateTaskId();
   const taskNumber = nextId;
 
   // create an object from the data
-  if (taskList[0] === null) {
-    taskList[0] = { tTitle: taskTitle, tDescription: taskDescript, tDate: taskDate, tNumber: taskNumber, tStatus: "to-do" };
+
+  tasksCurrent[tasksCurrent.length] = { tTitle: taskTitle, tDescription: taskDescript, tDate: taskDate, tNumber: taskNumber, tStatus: "to-do" };
     console.log(taskList);
-  } else {
-    taskList[taskList.length] = { tTitle: taskTitle, tDescription: taskDescript, tDate: taskDate, tNumber: taskNumber, tStatus: "to-do" };
-    console.log(taskList);
-  }
+  
 
   // store this new object in local storage
-  localStorage.setItem('tasks', JSON.stringify(taskList));
+  localStorage.setItem('tasks', JSON.stringify(tasksCurrent));
 
   // if (!taskTitle) {
   //   console.log('No shopping item filled out in form!');
@@ -208,6 +222,7 @@ function handleAddTask(event) {
   // activate the delete button
 
   renderTaskList();
+  }
 }
 
 // Todo: create a function to handle deleting a task

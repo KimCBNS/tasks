@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
-  
+
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 
   <link rel="stylesheet" href="assets\styles.css" />
@@ -20,6 +20,7 @@
 </head>
 
 <!-- Body Starts Here-->
+
 <body>
   <!-- HEADER and Subtitles No Changes required -->
   <header class="p-4 mb-4 text-center border-bottom border-5">
@@ -27,49 +28,53 @@
     <p class="lead">A simple Kanban board for task management</p>
   </header>
   <div class="container">
-    
-    
+
+
     <div class="text-center mb-5">
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Task</button>
     </div>
-   
-<!-- Todo: Create a modal with a form to add tasks -->
-<!-- THEN I can enter the title, description and deadline date for the new task into a modal dialog -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add task</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+    <!-- Todo: Create a modal with a form to add tasks -->
+    <!-- THEN I can enter the title, description and deadline date for the new task into a modal dialog -->
 
-      <div class="modal-body">
-        <label for="title" name="title">Title:</label>
-        <input type="text" class="form-input w-80" id="title" name="title" placeholder="Enter task title" />
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add task</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
 
-        <label for="date" name="date">Date:</label>
-        <input type="text" id="datepicker" name="date">
+          <div class="modal-body">
+            <div>
+              <label for="title" name="title">Title:</label>
+              <input type="text" class="form-input w-80" id="title" name="title" placeholder="Enter task title" />
+            </div>
+            <div>
+              <label for="date" name="date">Date:</label>
+              <input type="text" id="datepicker" name="date" placeholder="Enter task due date">
+            </div>
+            <div>
+              <label for="description" name="Description">Description:</label>
+              <input type="text" class="form-input w-80" id="description" name="description"
+                placeholder="Enter task description" />
+            </div>
 
-        <label for="description" name="Description">Description:</label>
-        <input type="text" class="form-input w-80" id="description" name="description" placeholder="Enter task description" />
+          </div>
 
+          <div class="modal-footer">
 
-      </div>
-
-      <div class="modal-footer">
-        
-        <button type="button" id="addTask" class="btn btn-primary">Add task</button>
+            <button type="button" id="addTask" class="btn btn-primary">Add task</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
 
- <!-- this is the area that controls the display layout -->
+    <!-- this is the area that controls the display layout -->
     <div class="row swim-lanes text-center justify-content-between">
-       <!-- Todo tasks-->
+      <!-- Todo tasks-->
       <div class="col-12 col-lg-4 d-flex">
         <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
           <div class="card-header bg-white">
@@ -77,12 +82,12 @@
           </div>
           <div class="card-body bg-light">
             <div id="todo-cards">
-              
+
             </div>
           </div>
         </div>
       </div>
-       <!-- In progress tasks-->
+      <!-- In progress tasks-->
       <div class="col-12 col-lg-4 d-flex">
         <div id="in-progress" class="card border-light mb-3 lane flex-grow-1">
           <div class="card-header bg-white">
@@ -92,17 +97,17 @@
             <div id="in-progress-cards"></div>
           </div>
         </div>
+      </div>
+      <!-- Done tasks-->
+      <div class="col-12 col-lg-4 d-flex">
+        <div id="done" class="card border-light mb-3 lane flex-grow-1">
+          <div class="card-header bg-white">
+            <h2 class="card-title mb-1">Done</h2>
+          </div>
+          <div class="card-body bg-light">
+            <div id="done-cards"></div>
+          </div>
         </div>
-         <!-- Done tasks-->
-        <div class="col-12 col-lg-4 d-flex">
-          <div id="done" class="card border-light mb-3 lane flex-grow-1">
-            <div class="card-header bg-white">
-              <h2 class="card-title mb-1">Done</h2>
-            </div>
-            <div class="card-body bg-light">
-              <div id="done-cards"></div>
-          </div>
-          </div>
       </div>
     </div>
   </div>
